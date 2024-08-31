@@ -1,0 +1,214 @@
+#:import hex kivy.utils.get_color_from_hex
+
+WindowManager:
+
+<WindowManager>:
+
+    SplashArt:
+        name: "splash"
+        Button:
+            size_hint: 1, 1
+            background_color: 0,0,0,0
+            on_release: app.root.current = "first"
+
+    FirstWindow:
+        name: "first"
+        Button:
+            #border: (10,10,10,10) // nao funciona
+            background_normal: ''
+            background_color: 0.19607843137254902, 0.6196078431372549, 0.8901960784313725
+            pos_hint : {"bottom": 0, "left": 0}
+            size_hint: 0.5, 0.1
+            text: "Escolher arquivo"
+            font_size: 16
+            #on_release: app.root.current = "second" //escolher arquivo
+
+        Button:
+            background_normal: ''
+            background_color: 0.19607843137254902, 0.2549019607843137, 0.8941176470588236
+            pos_hint : {"bottom": 0, "right": 1}
+            size_hint: 0.5, 0.1
+            text: "Avançar"
+            font_size: 16
+            on_release: app.root.current = "second"
+
+    SecondWindow:
+        name: "second"
+        Button:
+            background_normal: ''
+            background_color: 0.19607843137254902, 0.6196078431372549, 0.8901960784313725
+            pos_hint : {"bottom": 0, "left": 0}
+            size_hint: 0.5, 0.1
+            text: "Voltar"
+            font_size: 16
+            on_release: app.root.current = "first" 
+        Button:
+            background_normal: ''
+            background_color: 0.19, 0.25, 0.89
+            pos_hint : {"bottom": 0, "right": 1}
+            size_hint: 0.5, 0.1
+            text: "Mostrar gráfico"
+            font_size: 16
+            on_release: app.root.current = "third"
+
+    ThirdWindow:
+        name: "third"
+        Button:
+            background_normal: ''
+            background_color: 0.19, 0.25, 0.89
+            size_hint: 1, 0.1
+            pos_hint : {"bottom": 0}
+            text: "Voltar ao início"
+            font_size: 16
+            on_release: app.root.current = "first"
+
+
+<SplashArt>:
+    
+    canvas.before:
+        Color:
+            rgba: hex('#3241E4')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    GridLayout:
+        cols: 1
+        padding: [(self.width - 160)/2, (self.height - 160)/2, 0, 0]
+        Image
+            source: './images/power-plug.png'
+            allow_stretch: True
+            size_hint: None, None
+            size: 160, 160
+
+
+        #Label: (maybe add the label, def add the fading effects after 3 seconds)
+        #    text: "FatigueCheck"
+        #    font_size: 30
+        #    size_hint_y: None
+        #    height: self.texture_size[1]
+        #    on_press: app.root.current = "first"
+
+<FirstWindow>:
+    #PRIMEIRA JANELA AGORA DEVE CONTER, INSIRA O ARQUIVO EM QUE VOCE QUER CALCULAR OS DADOS DO CABO
+    canvas.before:
+        Color:
+            rgba: hex('#ECF2FE')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 20
+        Label:
+            font_name: "./fonts/static/Urbanist-Light.ttf"
+            #text: "Insira o arquivo com as \nmedicoes do vibrografo:"
+            text: "Os dados estão sendo lidos \ndo arquivo \n'MedicaoVibrografoCSV.csv'"
+            pos_hint : {"x": 0, "top": 0}
+            font_size: 24
+            color: hex('#000000')
+            
+            #size: root.width/2, root.height/2
+            #on_press: app.root.current = "splash"
+
+        #Button:
+        #    font_name: "./fonts/static/Urbanist-ExtraLight.ttf"
+        #    text: "Alumínio"
+        #    size_hint: 0.75, 0.25
+        #    pos_hint : {"center_x": .5}
+        #Button:
+        #    font_name: "./fonts/static/Urbanist-ExtraLight.ttf"
+        #    text: "ACSR"
+        #    size_hint: 0.75, 0.25
+        #    pos_hint : {"center_x": .5}
+
+<SecondWindow>:
+#SEGUNDA PAGINA DEVE MOSTRAR CADA CALCULO
+    
+    canvas.before:
+        Color:
+            rgba: hex('#ECF2FE')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 20
+        padding: 20, 20, 20, 20
+
+        Label:
+            text: "Mostrando cada calculo..."
+            font_name: "./fonts/static/Urbanist-Light.ttf"
+            font_size: 18
+            color: hex('#000000')
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            pos_hint : {"center_x": .5}
+        Label:
+            id: rigidez_min
+            text: root.rigidez_min_text
+            font_name: "./fonts/static/Urbanist-Light.ttf"
+            font_size: 18
+            color: hex('#000000')
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            pos_hint : {"center_x": .5}
+        Label:
+            id: dano
+            text: root.dano_text
+            font_name: "./fonts/static/Urbanist-Light.ttf"
+            font_size: 18
+            color: hex('#000000')
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            pos_hint : {"center_x": .5}
+        Label:
+            id: vida_em_anos
+            text: root.vida_anos_text
+            font_name: "./fonts/static/Urbanist-Light.ttf"
+            font_size: 18
+            color: hex('#000000')
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            pos_hint : {"center_x": .5}
+
+
+
+
+<ThirdWindow>:
+#TERCEIRA PAGINA DEVE MOSTRAR O RESULTADO MAIS O GRAFICO
+
+    canvas.before:
+        Color:
+            rgba: hex('#3241E4')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 20
+        padding: 20, 20, 20, 20
+     
+        Label:
+            text: "Podemos assim traçar a curva S-N."
+            font_name: "./fonts/static/Urbanist-Light.ttf"
+            font_size: 24
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+
+        #show graph
+        Image:
+            source: "images/curvaSN.png"
+            allow_stretch: True
+
+        Label:
+            text: "A curva SN representa a tensão como uma solicitação,\nonde N é o número de ciclos que o material \nresistiu para uma determinada tensão. \nEla possui a característica de que, \nquanto menor a tensão de amplitude, \nmaior é a resistência do material."
+            font_name: "./fonts/static/Urbanist-Light.ttf"
+            font_size: 18
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
