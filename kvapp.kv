@@ -3,32 +3,29 @@
 WindowManager:
 
 <WindowManager>:
-
     SplashArt:
         name: "splash"
         Button:
             size_hint: 1, 1
             background_color: 0,0,0,0
             on_release: app.root.current = "first"
-
     FirstWindow:
         name: "first"
         Button:
-            #border: (10,10,10,10) // nao funciona
+            #border: (50,50,50,50) // nao funciona
             background_normal: ''
-            background_color: 0.19607843137254902, 0.6196078431372549, 0.8901960784313725
+            background_color: 0.19, 0.62, 0.89
             pos_hint : {"bottom": 0, "left": 0}
-            size_hint: 0.5, 0.1
+            size_hint: 0.5, 0.08
             text: "Escolher arquivo"
             font_size: 16
-            #on_release: app.root.current = "second" //escolher arquivo
-
+            on_release: app.root.current = "fourth"
         Button:
             background_normal: ''
-            background_color: 0.19607843137254902, 0.2549019607843137, 0.8941176470588236
+            background_color: 0.19, 0.25, 0.89
             pos_hint : {"bottom": 0, "right": 1}
-            size_hint: 0.5, 0.1
-            text: "Avançar"
+            size_hint: 0.5, 0.08
+            text: "Avancar"
             font_size: 16
             on_release: app.root.current = "second"
 
@@ -36,17 +33,17 @@ WindowManager:
         name: "second"
         Button:
             background_normal: ''
-            background_color: 0.19607843137254902, 0.6196078431372549, 0.8901960784313725
+            background_color: 0.19, 0.62, 0.89
             pos_hint : {"bottom": 0, "left": 0}
-            size_hint: 0.5, 0.1
+            size_hint: 0.5, 0.08
             text: "Voltar"
             font_size: 16
-            on_release: app.root.current = "first" 
+            on_release: app.root.current = "first"
         Button:
             background_normal: ''
             background_color: 0.19, 0.25, 0.89
             pos_hint : {"bottom": 0, "right": 1}
-            size_hint: 0.5, 0.1
+            size_hint: 0.5, 0.08
             text: "Mostrar gráfico"
             font_size: 16
             on_release: app.root.current = "third"
@@ -55,16 +52,34 @@ WindowManager:
         name: "third"
         Button:
             background_normal: ''
-            background_color: 0.19, 0.25, 0.89
-            size_hint: 1, 0.1
+            background_color: 0.19, 0.62, 0.89
+            size_hint: 0.5, 0.08
             pos_hint : {"bottom": 0}
             text: "Voltar ao início"
             font_size: 16
             on_release: app.root.current = "first"
+        Button:
+            background_normal: ''
+            background_color: 0.19, 0.25, 0.89
+            pos_hint : {"bottom": 0, "right": 1}
+            size_hint: 0.5, 0.08
+            text: "Baixar imagem"
+            font_size: 16
+            #on_release: app.root.current = "third" --> BAIXAR IMAGEM DA CURVA SN
+
+    FourthWindow:
+        name: "fourth"
+        #Button:
+         #   background_normal: ''
+          #  background_color: 0.19, 0.25, 0.89
+           # size_hint: 1, 0.08
+            #pos_hint : {"bottom": 0}
+            #text: "Avancar"
+            #font_size: 16
+            #on_release: app.root.current = "third"
 
 
 <SplashArt>:
-    
     canvas.before:
         Color:
             rgba: hex('#3241E4')
@@ -80,7 +95,6 @@ WindowManager:
             size_hint: None, None
             size: 160, 160
 
-
         #Label: (maybe add the label, def add the fading effects after 3 seconds)
         #    text: "FatigueCheck"
         #    font_size: 30
@@ -89,7 +103,6 @@ WindowManager:
         #    on_press: app.root.current = "first"
 
 <FirstWindow>:
-    #PRIMEIRA JANELA AGORA DEVE CONTER, INSIRA O ARQUIVO EM QUE VOCE QUER CALCULAR OS DADOS DO CABO
     canvas.before:
         Color:
             rgba: hex('#ECF2FE')
@@ -101,32 +114,20 @@ WindowManager:
         spacing: 20
         Label:
             font_name: "./fonts/static/Urbanist-Light.ttf"
-            #text: "Insira o arquivo com as \nmedicoes do vibrografo:"
-            text: "Os dados estão sendo lidos \ndo arquivo \n'MedicaoVibrografoCSV.csv'"
-            pos_hint : {"x": 0, "top": 0}
-            font_size: 24
+            text: "Insira o arquivo com as medicoes do vibrografo ou caso deseje ver um exemplo do arquivo 'MedicaoVibrografoCSV.csv' clique em Avancar"
+            font_size: 20
             color: hex('#000000')
-            
-            #size: root.width/2, root.height/2
-            #on_press: app.root.current = "splash"
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            pos_hint: {"center_x": .5}
 
-        #Button:
-        #    font_name: "./fonts/static/Urbanist-ExtraLight.ttf"
-        #    text: "Alumínio"
-        #    size_hint: 0.75, 0.25
-        #    pos_hint : {"center_x": .5}
-        #Button:
-        #    font_name: "./fonts/static/Urbanist-ExtraLight.ttf"
-        #    text: "ACSR"
-        #    size_hint: 0.75, 0.25
-        #    pos_hint : {"center_x": .5}
 
-<SecondWindow>:
-#SEGUNDA PAGINA DEVE MOSTRAR CADA CALCULO
-    
+
+<FourthWindow>:
     canvas.before:
         Color:
-            rgba: hex('#ECF2FE')
+            rgba: hex('#4553ec') #MUDAR COR DEPOIS
         Rectangle:
             pos: self.pos
             size: self.size
@@ -135,80 +136,96 @@ WindowManager:
         spacing: 20
         padding: 20, 20, 20, 20
 
-        Label:
-            text: "Mostrando cada calculo..."
-            font_name: "./fonts/static/Urbanist-Light.ttf"
-            font_size: 18
-            color: hex('#000000')
-            text_size: self.size
-            halign: 'center'
-            valign: 'middle'
-            pos_hint : {"center_x": .5}
-        Label:
-            id: rigidez_min
-            text: root.rigidez_min_text
-            font_name: "./fonts/static/Urbanist-Light.ttf"
-            font_size: 18
-            color: hex('#000000')
-            text_size: self.size
-            halign: 'center'
-            valign: 'middle'
-            pos_hint : {"center_x": .5}
-        Label:
-            id: dano
-            text: root.dano_text
-            font_name: "./fonts/static/Urbanist-Light.ttf"
-            font_size: 18
-            color: hex('#000000')
-            text_size: self.size
-            halign: 'center'
-            valign: 'middle'
-            pos_hint : {"center_x": .5}
-        Label:
-            id: vida_em_anos
-            text: root.vida_anos_text
-            font_name: "./fonts/static/Urbanist-Light.ttf"
-            font_size: 18
-            color: hex('#000000')
-            text_size: self.size
-            halign: 'center'
-            valign: 'middle'
-            pos_hint : {"center_x": .5}
+    fileWidget:
+        orientation: "vertical"
+        id: widget1
+#        BoxLayout:
+#
+#           Button:
+#                text: 'Icon View'
+#                on_press: filechooser.view_mode = 'icon'
+#           Button:
+#                text: 'List View'
+#               on_press: filechooser.view_mode = 'list'
+        BoxLayout:
+            orientation: 'vertical'
 
+            FileChooserIconView:
+                id: filechooser
+                #FileChooserIconLayout
+                #FileChooserListLayout
+                on_selection: widget1.selected(filechooser.selection) 
+            Image:
+                id: image_display
+                size_hint_y: 0.7
+                allow_stretch: True
+                keep_ratio: True
 
+            BoxLayout:
+                size_hint_y: None
+                height: 30
+                Button:
+                    background_normal: ''
+                    background_color: 0.19, 0.62, 0.89
+                    pos_hint : {"bottom": 0, "left": 0}
+                    text: "Cancelar"
+                    font_size: 16
+                    size_hint: 1, 1.6
+                    on_release: root.manager.current = "first"
 
+                Button:
+                    background_normal: ''
+                    background_color: 0.19, 0.25, 0.89
+                    pos_hint: {"bottom": 0, "right": 1}
+                    size_hint: 1, 1.6
+                    font_size: 16
+                    text: "Carregar arquivo"
+                    on_release: widget1.load(filechooser.path, filechooser.selection)
+
+<SecondWindow>:
+    canvas.before:
+        Color:
+            rgba: hex('#ECF2FE')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        Label:
+            text: "Para o arquivo "+ root.filepathname_text + root.rigidez_min_text + root.dano_text + root.vida_anos_text
+            font_name: "./fonts/static/Urbanist-Light.ttf"
+            font_size: 20
+            color: hex('#000000')
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            pos_hint: {"center_x": .5}
 
 <ThirdWindow>:
-#TERCEIRA PAGINA DEVE MOSTRAR O RESULTADO MAIS O GRAFICO
-
     canvas.before:
         Color:
             rgba: hex('#3241E4')
         Rectangle:
             pos: self.pos
             size: self.size
-    BoxLayout:
-        orientation: "vertical"
-        spacing: 20
-        padding: 20, 20, 20, 20
-     
-        Label:
-            text: "Podemos assim traçar a curva S-N."
-            font_name: "./fonts/static/Urbanist-Light.ttf"
-            font_size: 24
-            text_size: self.size
-            halign: 'center'
-            valign: 'middle'
-
-        #show graph
-        Image:
-            source: "images/curvaSN.png"
-            allow_stretch: True
-
-        Label:
-            text: "A curva SN representa a tensão como uma solicitação,\nonde N é o número de ciclos que o material \nresistiu para uma determinada tensão. \nEla possui a característica de que, \nquanto menor a tensão de amplitude, \nmaior é a resistência do material."
-            font_name: "./fonts/static/Urbanist-Light.ttf"
-            font_size: 18
-            text_size: self.size
-            halign: 'center'
-            valign: 'middle'
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 20
+            padding: 20, 20, 20, 20
+            #show graph
+            Image:
+                source: "images/curvaSN.png"
+                allow_stretch: True
+                #on_touch_down: root.image_press(*args) --> zoom na imagem ou deixar ela sozinha na tela
+            Label:
+                text: "A curva SN representa a tensão como uma solicitação, onde N é o número de ciclos que o material resistiu para uma determinada tensão. Ela possui a característica de que, quanto menor a tensão de amplitude, maior é a resistência do material."
+                font_name: "./fonts/static/Urbanist-Light.ttf"
+                font_size: 20
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+                pos_hint: {"center_x": .5}
